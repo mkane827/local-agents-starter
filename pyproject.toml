@@ -1,0 +1,28 @@
+[project]
+name = "local-agents-starter"
+version = "0.1.0"
+description = "Starter template and foundation for building and running 100% local AI agents with Ollama, LangGraph, and MCP"
+readme = "README.md"
+authors = [
+    { name = "Malcolm", email = "mkane827@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "chromadb>=1.5.9",
+    "google-api-python-client>=2.200.0",
+    "google-auth-httplib2>=0.4.2",
+    "google-auth-oauthlib>=1.4.1",
+    "langchain>=1.4.0",
+    "langchain-ollama>=1.1.0",
+    "langgraph>=1.2.11",
+    "mcp>=2.2.0",
+    "ollama>=0.6.2",
+    "openpyxl>=3.1.5",
+]
+
+[project.scripts]
+local-agents-starter = "local_agents_starter:main"
+
+[build-system]
+requires = ["uv_build>=0.12.13,<0.13.0"]
+build-backend = "uv_build"
