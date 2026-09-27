@@ -18,21 +18,21 @@ This diagnostic script automatically verifies your Python version, `uv` package 
 
 ## 🛠️ 3-Step Setup Instructions
 
-### Step 1: Clone Repository & Install Dependencies
+### Step 1: Initialize Workspace & Install Dependencies
 
-If you haven't installed `uv` yet, install it in one command:
+Choose how you want to grab the files:
+- **GitHub Template**: Click **"Use this template"** ➔ **"Create a new repository"** on GitHub to start with a fresh repo in your account without fork ties.
+- **Clone & Reinitialize**:
+  ```bash
+  git clone https://github.com/<your-username>/local-agents-starter.git my-agents
+  cd my-agents
+  rm -rf .git && git init -b main
+  ```
+- **Download ZIP**: Click **Code ➔ Download ZIP** on GitHub and extract the folder.
+
+Once you are in your project folder, install dependencies:
 ```bash
-curl -sSfL https://astral.sh/uv/install.sh | sh
-# or on macOS with Homebrew:
-# brew install uv
-```
-
-Clone the repository and install all dependencies:
-```bash
-git clone https://github.com/<your-username>/local-agents-starter.git
-cd local-agents-starter
-
-# Install dependencies and create a dedicated virtual environment in 1 second
+# Install all dependencies and create a dedicated virtual environment in 1 second
 uv sync
 ```
 

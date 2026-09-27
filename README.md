@@ -51,13 +51,35 @@ Built with **[Ollama](https://ollama.com)**, **[LangGraph](https://github.com/la
 
 ---
 
+## 📦 How to Use This Starter
+
+This repository is designed as a **self-contained starter template** rather than a collaborative package. You do not need to fork this repository or contribute upstream.
+
+### 🌟 Option 1: GitHub Template (Recommended)
+1. Click the green **"Use this template"** button at the top of the GitHub page ➔ select **"Create a new repository"**.
+2. This creates a completely independent repository in your personal account with a clean initial commit and **zero fork linkages**, ensuring no accidental pull requests or upstream sync issues.
+
+### 💻 Option 2: Clone & Reinitialize
+If cloning via the terminal, clone into your new project directory and reinitialize Git to create your own clean root commit:
+```bash
+git clone https://github.com/<your-username>/local-agents-starter.git my-agent-workspace
+cd my-agent-workspace
+rm -rf .git && git init -b main
+```
+
+### 📁 Option 3: Download ZIP (No Git Required)
+Click **Code ➔ Download ZIP** on GitHub and extract the folder to wherever you want to build your agents.
+
+---
+
 ## 🚀 Quick Start (Under 2 Minutes)
 
-### 1. Clone & Setup Workspace
+### 1. Setup Workspace & Dependencies
+
+Once you have your project directory set up:
 
 ```bash
-git clone https://github.com/<your-username>/local-agents-starter.git
-cd local-agents-starter
+cd local-agents-starter # or your project directory
 
 # Install all dependencies and create virtual environment in ~1 second
 uv sync
@@ -194,3 +216,12 @@ If you are working with an AI coding assistant (e.g. Antigravity, Claude Code, C
 - Clean separation of permissions and read-only external data policies.
 
 Consult `AGENTS.md` before making architectural decisions or modifying agent workflows.
+
+---
+
+## 🔒 Maintenance & Contributions Policy
+
+This repository is maintained strictly as an **independent starter foundation and reference template**.
+
+- **No Upstream Contributions or Pull Requests**: To keep this starting point lightweight, unopinionated, and minimal, this project does not accept pull requests, feature requests, or external contributions.
+- **Full Local Ownership**: You do not need to fork this project. Simply use GitHub's **"Use this template"** feature or clone/download the files to create your own repository. Once copied, it is 100% yours to customize, refactor, and build upon.
