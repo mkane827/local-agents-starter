@@ -12,7 +12,7 @@ Welcome to the **Local Agent Starter** project root. This repository serves as t
 1. **Active Suggestion**: Whenever a new feature, architecture decision, dependency, workflow pattern, or tool convention is introduced or modified during a conversation, the agent **MUST** review `AGENTS.md` and suggest necessary updates.
 2. **Context Persistence**: Always capture critical instructions, code styles, and operational setup steps into `AGENTS.md` (or `.agents/` rules) so subsequent sessions automatically inherit them.
 3. **Refinement & Pruning**: Keep sections clear, concise, and structured. Update outdated guidelines as the codebase evolves.
-4. **Setup Guide Maintenance**: Whenever new dependencies, model requirements, environment variables, or tool prerequisites are introduced, the agent **MUST** keep [`SETUP.md`](file:///Users/malcolmkane/code/local-agents-starter/SETUP.md) and [`scripts/setup_check.py`](file:///Users/malcolmkane/code/local-agents-starter/scripts/setup_check.py) updated alongside `AGENTS.md`.
+4. **Setup Guide Maintenance**: Whenever new dependencies, model requirements, environment variables, or tool prerequisites are introduced, the agent **MUST** keep [`SETUP.md`](SETUP.md) and [`scripts/setup_check.py`](scripts/setup_check.py) updated alongside `AGENTS.md`.
 
 ---
 
@@ -106,11 +106,11 @@ As the project develops, code and configurations should follow this structure:
 
 | Agent / Tool | Location | Description | Status |
 | :--- | :--- | :--- | :--- |
-| **Setup Diagnostic Tool** | [`scripts/setup_check.py`](file:///Users/malcolmkane/code/local-agents-starter/scripts/setup_check.py) | Automated environment, Ollama, model, dependency, and OAuth diagnostic tool | ✅ Verified |
-| **Local Gemma Harness** | [`tests/test_local_gemma.py`](file:///Users/malcolmkane/code/local-agents-starter/tests/test_local_gemma.py) | Verification test harness for local inference with Google Gemma 2 (9B) via Ollama | ✅ Verified |
-| **LangGraph Base Agent** | [`agents/base_agent.py`](file:///Users/malcolmkane/code/local-agents-starter/agents/base_agent.py) | Deterministic LangGraph state machine powered by local Gemma 2 (9B) | ✅ Verified |
-| **Google Drive Tooling** | [`tools/gdrive_tool.py`](file:///Users/malcolmkane/code/local-agents-starter/tools/gdrive_tool.py) | Google Drive API integration for search, read, create, and update operations | ✅ Verified |
-| **Google Drive Agent** | [`agents/gdrive_agent.py`](file:///Users/malcolmkane/code/local-agents-starter/agents/gdrive_agent.py) | Local LangGraph agent powered by Qwen 2.5 Coder for natural language Drive management | ✅ Verified |
+| **Setup Diagnostic Tool** | [`scripts/setup_check.py`](scripts/setup_check.py) | Automated environment, Ollama, model, dependency, and OAuth diagnostic tool | ✅ Verified |
+| **Local Gemma Harness** | [`tests/test_local_gemma.py`](tests/test_local_gemma.py) | Verification test harness for local inference with Google Gemma 2 (9B) via Ollama | ✅ Verified |
+| **LangGraph Base Agent** | [`agents/base_agent.py`](agents/base_agent.py) | Deterministic LangGraph state machine powered by local Gemma 2 (9B) | ✅ Verified |
+| **Google Drive Tooling** | [`tools/gdrive_tool.py`](tools/gdrive_tool.py) | Google Drive API integration for search, read, create, and update operations | ✅ Verified |
+| **Google Drive Agent** | [`agents/gdrive_agent.py`](agents/gdrive_agent.py) | Local LangGraph agent powered by Qwen 2.5 Coder for natural language Drive management | ✅ Verified |
 
 ---
 

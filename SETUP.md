@@ -29,7 +29,7 @@ curl -sSfL https://astral.sh/uv/install.sh | sh
 
 Clone the repository and install all dependencies:
 ```bash
-git clone https://github.com/mkane827/local-agents-starter.git
+git clone https://github.com/<your-username>/local-agents-starter.git
 cd local-agents-starter
 
 # Install dependencies and create a dedicated virtual environment in 1 second

@@ -56,7 +56,7 @@ Built with **[Ollama](https://ollama.com)**, **[LangGraph](https://github.com/la
 ### 1. Clone & Setup Workspace
 
 ```bash
-git clone https://github.com/mkane827/local-agents-starter.git
+git clone https://github.com/<your-username>/local-agents-starter.git
 cd local-agents-starter
 
 # Install all dependencies and create virtual environment in ~1 second
@@ -185,7 +185,7 @@ To enable it:
 
 ## 🤖 Instructions for AI Coding Assistants
 
-If you are working with an AI coding assistant (e.g. Antigravity, Claude Code, Cursor, Copilot Workspace), this repository contains an **[`AGENTS.md`](file:///Users/malcolmkane/code/local-agents-starter/AGENTS.md)** file.
+If you are working with an AI coding assistant (e.g. Antigravity, Claude Code, Cursor, Copilot Workspace), this repository contains an **[`AGENTS.md`](AGENTS.md)** file.
 
 `AGENTS.md` is a living document that enforces:
 - Strict single-command local CLI entrypoints (`agents/*.py`).

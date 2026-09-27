@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Starter template and foundation for building and running 100% local AI agents with Ollama, LangGraph, and MCP"
 readme = "README.md"
 authors = [
-    { name = "Malcolm", email = "mkane827@gmail.com" }
+    { name = "Local Agents Community" }
 ]
 requires-python = ">=3.13"
 dependencies = [
