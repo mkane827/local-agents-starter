@@ -53,22 +53,53 @@ Built with **[Ollama](https://ollama.com)**, **[LangGraph](https://github.com/la
 
 ## 📦 How to Use This Starter
 
-This repository is designed as a **self-contained starter template** rather than a collaborative package. You do not need to fork this repository or contribute upstream.
+This repository is designed as a **self-contained starter template**. You can create a **100% local-only project directly from your CLI** (no GitHub account required after download), or generate a new GitHub repository from the template.
 
-### 🌟 Option 1: GitHub Template (Recommended)
-1. Click the green **"Use this template"** button at the top of the GitHub page ➔ select **"Create a new repository"**.
-2. This creates a completely independent repository in your personal account with a clean initial commit and **zero fork linkages**, ensuring no accidental pull requests or upstream sync issues.
+### 💻 Method 1: Local-Only Project via CLI (Pure Git — Recommended)
+If you want a completely standalone local project that lives only on your machine with zero upstream linkages:
 
-### 💻 Option 2: Clone & Reinitialize
-If cloning via the terminal, clone into your new project directory and reinitialize Git to create your own clean root commit:
 ```bash
-git clone https://github.com/<your-username>/local-agents-starter.git my-agent-workspace
-cd my-agent-workspace
-rm -rf .git && git init -b main
+git clone --depth 1 https://github.com/<your-username>/local-agents-starter.git my-agents && \
+  cd my-agents && \
+  rm -rf .git && \
+  git init -b main && \
+  git add . && \
+  git commit -m "Initial commit"
 ```
 
-### 📁 Option 3: Download ZIP (No Git Required)
-Click **Code ➔ Download ZIP** on GitHub and extract the folder to wherever you want to build your agents.
+**What this does**:
+1. Downloads a shallow copy (`--depth 1`) of the template files.
+2. Removes all template git history and remote linkages (`rm -rf .git`).
+3. Re-initializes a fresh local-only git repository (`git init -b main`) with its own root commit.
+4. Leaves you with **zero remote tracking**—the repo exists 100% locally on your machine with no connection to the starter repo.
+
+---
+
+### 🌐 Method 2: GitHub CLI (`gh`)
+If you use the official GitHub CLI and want to generate a new private repository on GitHub from this template:
+
+```bash
+gh repo create my-agents --template <your-username>/local-agents-starter --private --clone
+cd my-agents
+```
+
+---
+
+### 🌟 Method 3: GitHub Web UI ("Use this template")
+1. Click the green **"Use this template"** button at the top of the GitHub repository page ➔ select **"Create a new repository"**.
+2. This creates an independent repository in your personal account with **zero fork linkages**, ensuring no accidental pull requests or upstream sync issues.
+
+---
+
+### 📁 Method 4: Download ZIP / Tarball (No Git Required)
+If you want the raw project files without cloning:
+- **CLI**:
+  ```bash
+  curl -L https://github.com/<your-username>/local-agents-starter/archive/refs/heads/main.tar.gz | tar -xz
+  mv local-agents-starter-main my-agents
+  cd my-agents
+  ```
+- **Browser**: Click **Code ➔ Download ZIP** on GitHub and extract the folder.
 
 ---
 

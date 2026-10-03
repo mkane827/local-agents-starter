@@ -21,14 +21,22 @@ This diagnostic script automatically verifies your Python version, `uv` package 
 ### Step 1: Initialize Workspace & Install Dependencies
 
 Choose how you want to grab the files:
-- **GitHub Template**: Click **"Use this template"** ➔ **"Create a new repository"** on GitHub to start with a fresh repo in your account without fork ties.
-- **Clone & Reinitialize**:
+- **Local-Only via CLI (Pure Git)**:
   ```bash
-  git clone https://github.com/<your-username>/local-agents-starter.git my-agents
-  cd my-agents
-  rm -rf .git && git init -b main
+  git clone --depth 1 https://github.com/<your-username>/local-agents-starter.git my-agents && \
+    cd my-agents && \
+    rm -rf .git && \
+    git init -b main && \
+    git add . && \
+    git commit -m "Initial commit"
   ```
-- **Download ZIP**: Click **Code ➔ Download ZIP** on GitHub and extract the folder.
+- **GitHub CLI**:
+  ```bash
+  gh repo create my-agents --template <your-username>/local-agents-starter --private --clone
+  cd my-agents
+  ```
+- **GitHub Web UI**: Click **"Use this template"** ➔ **"Create a new repository"** on GitHub.
+- **Download Archive**: Click **Code ➔ Download ZIP** or use `curl -L https://github.com/<your-username>/local-agents-starter/archive/refs/heads/main.tar.gz | tar -xz`.
 
 Once you are in your project folder, install dependencies:
 ```bash
