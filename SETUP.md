@@ -18,31 +18,20 @@ This diagnostic script automatically verifies your Python version, `uv` package 
 
 ## 🛠️ 3-Step Setup Instructions
 
-### Step 1: Initialize Workspace & Install Dependencies
+### Step 1: Create Repository & Install Dependencies
 
-Choose how you want to grab the files:
-- **Local-Only via CLI (Pure Git)**:
-  ```bash
-  git clone --depth 1 https://github.com/<your-username>/local-agents-starter.git my-agents && \
-    cd my-agents && \
-    rm -rf .git && \
-    git init -b main && \
-    git add . && \
-    git commit -m "Initial commit"
-  ```
-- **GitHub CLI**:
-  ```bash
-  gh repo create my-agents --template <your-username>/local-agents-starter --private --clone
-  cd my-agents
-  ```
-- **GitHub Web UI**: Click **"Use this template"** ➔ **"Create a new repository"** on GitHub.
-- **Download Archive**: Click **Code ➔ Download ZIP** or use `curl -L https://github.com/<your-username>/local-agents-starter/archive/refs/heads/main.tar.gz | tar -xz`.
+1. Click the green **"Use this template"** ➔ **"Create a new repository"** button at the top of the GitHub repository.
+2. Give your repository a name and clone your new project to your machine:
+   ```bash
+   git clone https://github.com/<your-username>/<your-repo-name>.git
+   cd <your-repo-name>
+   ```
+3. Install all dependencies and generate your virtual environment in 1 second:
+   ```bash
+   uv sync
+   ```
 
-Once you are in your project folder, install dependencies:
-```bash
-# Install all dependencies and create a dedicated virtual environment in 1 second
-uv sync
-```
+*(Note: If `uv` is not yet installed on your machine, install it via `curl -sSfL https://astral.sh/uv/install.sh | sh` or `brew install uv`.)*
 
 ---
 

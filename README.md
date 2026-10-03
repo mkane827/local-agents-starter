@@ -51,75 +51,25 @@ Built with **[Ollama](https://ollama.com)**, **[LangGraph](https://github.com/la
 
 ---
 
-## 📦 How to Use This Starter
-
-This repository is designed as a **self-contained starter template**. You can create a **100% local-only project directly from your CLI** (no GitHub account required after download), or generate a new GitHub repository from the template.
-
-### 💻 Method 1: Local-Only Project via CLI (Pure Git — Recommended)
-If you want a completely standalone local project that lives only on your machine with zero upstream linkages:
-
-```bash
-git clone --depth 1 https://github.com/<your-username>/local-agents-starter.git my-agents && \
-  cd my-agents && \
-  rm -rf .git && \
-  git init -b main && \
-  git add . && \
-  git commit -m "Initial commit"
-```
-
-**What this does**:
-1. Downloads a shallow copy (`--depth 1`) of the template files.
-2. Removes all template git history and remote linkages (`rm -rf .git`).
-3. Re-initializes a fresh local-only git repository (`git init -b main`) with its own root commit.
-4. Leaves you with **zero remote tracking**—the repo exists 100% locally on your machine with no connection to the starter repo.
-
----
-
-### 🌐 Method 2: GitHub CLI (`gh`)
-If you use the official GitHub CLI and want to generate a new private repository on GitHub from this template:
-
-```bash
-gh repo create my-agents --template <your-username>/local-agents-starter --private --clone
-cd my-agents
-```
-
----
-
-### 🌟 Method 3: GitHub Web UI ("Use this template")
-1. Click the green **"Use this template"** button at the top of the GitHub repository page ➔ select **"Create a new repository"**.
-2. This creates an independent repository in your personal account with **zero fork linkages**, ensuring no accidental pull requests or upstream sync issues.
-
----
-
-### 📁 Method 4: Download ZIP / Tarball (No Git Required)
-If you want the raw project files without cloning:
-- **CLI**:
-  ```bash
-  curl -L https://github.com/<your-username>/local-agents-starter/archive/refs/heads/main.tar.gz | tar -xz
-  mv local-agents-starter-main my-agents
-  cd my-agents
-  ```
-- **Browser**: Click **Code ➔ Download ZIP** on GitHub and extract the folder.
-
----
-
 ## 🚀 Quick Start (Under 2 Minutes)
 
-### 1. Setup Workspace & Dependencies
+### 1. Create Your Project from the Template
+1. At the top of this GitHub repository, click the green **"Use this template"** button ➔ select **"Create a new repository"**.
+2. Give your repository a name (e.g. `my-local-agents`) and click **Create repository**.
+3. Clone **your** new repository to your local machine:
+   ```bash
+   git clone https://github.com/<your-username>/<your-repo-name>.git
+   cd <your-repo-name>
+   ```
 
-Once you have your project directory set up:
-
+### 2. Install Dependencies
+Install all required packages and generate your local virtual environment in ~1 second using `uv`:
 ```bash
-cd local-agents-starter # or your project directory
-
-# Install all dependencies and create virtual environment in ~1 second
 uv sync
 ```
 
-### 2. Pull Local Models
-
-Pull the default recommended models via Ollama:
-
+### 3. Pull Local Models
+Download the recommended open models using Ollama:
 ```bash
 # General reasoning and agent planning (Google Gemma 2 - 9B)
 ollama pull gemma2:9b
@@ -128,18 +78,14 @@ ollama pull gemma2:9b
 ollama pull qwen2.5-coder:7b
 ```
 
-### 3. Run Automated Diagnostics
-
+### 4. Run Automated Diagnostics
 Verify that your system binaries, Ollama daemon, model weights, and dependencies are ready:
-
 ```bash
 uv run python scripts/setup_check.py
 ```
 
-### 4. Run Your First Agent
-
+### 5. Run Your First Agent
 Run the included baseline LangGraph agent:
-
 ```bash
 uv run python agents/base_agent.py
 ```
