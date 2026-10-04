@@ -1,0 +1,128 @@
+{
+  "project_name": "Local Agents Starter",
+  "description": "Baseline local agent architecture running 100% sovereign compute with Ollama and LangGraph.",
+  "version": "0.1.0",
+  "nodes": [
+    {
+      "id": "agent-base",
+      "name": "Base LangGraph Agent",
+      "type": "agent",
+      "description": "Deterministic LangGraph state machine executing single-turn reasoning tasks via local Ollama models.",
+      "file": "agents/base_agent.py",
+      "details": "### Overview\nA minimal, clean blueprint for stateful local agent graphs using LangGraph.\n\n### State Schema\n```python\nclass AgentState(TypedDict):\n    messages: Annotated[Sequence[BaseMessage], add_messages]\n```\n\n### Lifecycle\n1. Receives incoming user `HumanMessage`.\n2. Dispatches prompt to local Ollama inference daemon.\n3. Streams back an `AIMessage` with structured output and explicitly transitions to `END`.\n\n### Use Cases\n- Testing local model responsiveness\n- Prototyping conversational reasoning workflows\n- Foundation for branching multi-step agent graphs",
+      "status": "active",
+      "tags": ["langgraph", "reasoning", "starter-template"]
+    },
+    {
+      "id": "agent-gdrive",
+      "name": "Google Drive Assistant Agent",
+      "type": "agent",
+      "description": "Cyclical tool-calling agent that searches, reads, and synthesizes Google Drive documents.",
+      "file": "agents/gdrive_agent.py",
+      "details": "### Overview\nAn autonomous agent demonstrating cyclical tool-calling with local models. It uses **Qwen 2.5 Coder (7B)** to inspect user intent, emit structured JSON tool calls, parse outputs from `tools/gdrive_tool.py`, and return synthesized findings.\n\n### Tool Capabilities\n- `gdrive_search(query)`: Query Drive files by name pattern\n- `gdrive_read(file_id)`: Read and export Docs/Sheets as plain text/CSV\n- `gdrive_create(name, content)`: Generate brand-new output files in Google Drive\n- `gdrive_update(file_id, new_content)`: Update text content by ID\n\n### Safety Constraints\nFollows strict read-only conventions for source data; output reports are generated as new files.",
+      "status": "active",
+      "tags": ["langgraph", "tool-calling", "google-drive"]
+    },
+    {
+      "id": "tool-gdrive",
+      "name": "Google Drive API Toolset",
+      "type": "tool",
+      "description": "OAuth 2.0 client and operational wrappers for Google Drive v3 REST API.",
+      "file": "tools/gdrive_tool.py",
+      "details": "### Overview\nProvides authenticated access to Google Drive using local tokens stored in `~/.gdrive_token.json` and client secrets in `~/credentials.json`.\n\n### Export Formats\n- Google Docs ➔ exported as UTF-8 `text/plain`\n- Google Sheets ➔ exported as `text/csv`\n- Binary / Other ➔ retrieved directly via media streaming\n\n### Auth Flow\n1. Checks for cached valid token.\n2. Refreshes expired token automatically.\n3. Falls back to desktop browser OAuth popup on initial setup.",
+      "status": "active",
+      "tags": ["google-api", "oauth2", "cloud-storage"]
+    },
+    {
+      "id": "model-gemma2",
+      "name": "Google Gemma 2 (9B)",
+      "type": "model",
+      "description": "High-efficiency open reasoning model running locally via Ollama with Metal GPU acceleration.",
+      "file": "http://localhost:11434",
+      "details": "### Model Specs\n- **Family**: Google Gemma 2\n- **Parameter Count**: 9 Billion\n- **Quantization**: Q4_0\n- **Inference Server**: Ollama daemon (`http://localhost:11434`)\n- **Primary Strengths**: General reasoning, intent classification, multi-step planning, high coherence in concise responses.",
+      "status": "active",
+      "tags": ["ollama", "google", "metal-accelerated"]
+    },
+    {
+      "id": "model-qwen25",
+      "name": "Qwen 2.5 Coder (7B)",
+      "type": "model",
+      "description": "Specialized open-weights model for precision JSON tool calling and code synthesis.",
+      "file": "http://localhost:11434",
+      "details": "### Model Specs\n- **Family**: Qwen 2.5 Coder\n- **Parameter Count**: 7.6 Billion\n- **Quantization**: Q4_K_M\n- **Inference Server**: Ollama daemon (`http://localhost:11434`)\n- **Primary Strengths**: Exceptional adherence to strict JSON formatting schemas, accurate tool parameter generation, and minimal hallucination during tool selection.",
+      "status": "active",
+      "tags": ["ollama", "qwen", "tool-calling"]
+    },
+    {
+      "id": "store-chroma",
+      "name": "ChromaDB Vector Store",
+      "type": "datastore",
+      "description": "Embedded local vector database for document embeddings and semantic retrieval.",
+      "file": "data/",
+      "details": "### Overview\nEmbedded, persistent vector memory backed by SQLite and HNSW indexing.\n\n### Location\n`data/chroma_db/` (gitignored to prevent repository bloat).\n\n### Features\n- 100% local persistence\n- Fast semantic distance queries\n- Zero cloud dependencies",
+      "status": "active",
+      "tags": ["chromadb", "vector-db", "local-storage"]
+    },
+    {
+      "id": "script-setup-check",
+      "name": "Setup Diagnostics Tool",
+      "type": "workflow",
+      "description": "Self-healing diagnostic utility validating Python, Git, uv, Ollama daemon, models, and OAuth tokens.",
+      "file": "scripts/setup_check.py",
+      "details": "### Automated Health Verifications\n1. Python runtime (>= 3.10)\n2. Git CLI availability\n3. `uv` binary presence\n4. Ollama CLI & daemon responsiveness (`http://127.0.0.1:11434`)\n5. Required model weights installed in Ollama\n6. Python package imports (`langgraph`, `chromadb`, `ollama`, `mcp`)\n7. Optional Google Drive credentials check",
+      "status": "active",
+      "tags": ["diagnostics", "cli", "system-check"]
+    }
+  ],
+  "edges": [
+    {
+      "source": "agent-base",
+      "target": "model-gemma2",
+      "label": "reasons_with",
+      "type": "uses_model",
+      "description": "Base LangGraph Agent invokes Gemma 2 (9B) via LangChain ChatOllama for general reasoning."
+    },
+    {
+      "source": "agent-gdrive",
+      "target": "model-qwen25",
+      "label": "tool_calling",
+      "type": "uses_model",
+      "description": "Google Drive Agent uses Qwen 2.5 Coder for strict JSON tool schema generation."
+    },
+    {
+      "source": "agent-gdrive",
+      "target": "tool-gdrive",
+      "label": "calls",
+      "type": "calls",
+      "description": "Executes search, read, create, and update operations via the Google Drive API wrapper."
+    },
+    {
+      "source": "agent-gdrive",
+      "target": "store-chroma",
+      "label": "indexes_files",
+      "type": "reads_writes",
+      "description": "Caches and indexes document content locally for fast semantic retrieval."
+    },
+    {
+      "source": "script-setup-check",
+      "target": "model-gemma2",
+      "label": "verifies_weights",
+      "type": "depends_on",
+      "description": "Verifies that gemma2:9b is pulled and active in Ollama."
+    },
+    {
+      "source": "script-setup-check",
+      "target": "model-qwen25",
+      "label": "verifies_weights",
+      "type": "depends_on",
+      "description": "Verifies that qwen2.5-coder:7b is pulled and active in Ollama."
+    },
+    {
+      "source": "script-setup-check",
+      "target": "tool-gdrive",
+      "label": "checks_credentials",
+      "type": "depends_on",
+      "description": "Checks for ~/credentials.json and ~/.gdrive_token.json."
+    }
+  ]
+}

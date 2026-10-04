@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AgentArchitectureGraph",
+  "description": "Schema contract for local agent architecture visualization, mapping agents, tools, workflows, models, and datastores.",
+  "type": "object",
+  "properties": {
+    "project_name": {
+      "type": "string",
+      "description": "Name of the local agent project or workspace."
+    },
+    "description": {
+      "type": "string",
+      "description": "High-level summary of the architecture."
+    },
+    "version": {
+      "type": "string",
+      "description": "Schema or project version string."
+    },
+    "nodes": {
+      "type": "array",
+      "description": "List of architectural entities (agents, tools, models, datastores, workflows).",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "type", "description"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the node (e.g. 'agent-base', 'tool-gdrive')."
+          },
+          "name": {
+            "type": "string",
+            "description": "Human-readable display name."
+          },
+          "type": {
+            "type": "string",
+            "enum": ["agent", "tool", "workflow", "datastore", "model"],
+            "description": "Architectural category of the entity."
+          },
+          "description": {
+            "type": "string",
+            "description": "Concise 1-2 sentence overview of what this node does."
+          },
+          "file": {
+            "type": "string",
+            "description": "Repository-relative file path if applicable (e.g. 'agents/base_agent.py')."
+          },
+          "details": {
+            "type": "string",
+            "description": "Rich Markdown documentation describing functionality, state schema, inputs/outputs, and implementation notes."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active", "draft", "deprecated", "external"],
+            "default": "active"
+          },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Keywords or category tags (e.g. ['ollama', 'langgraph', 'google-api'])."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "edges": {
+      "type": "array",
+      "description": "Directed connections showing how entities interact with or depend on each other.",
+      "items": {
+        "type": "object",
+        "required": ["source", "target", "label"],
+        "properties": {
+          "source": {
+            "type": "string",
+            "description": "Node ID where the interaction originates (caller/user)."
+          },
+          "target": {
+            "type": "string",
+            "description": "Node ID being invoked, queried, or utilized."
+          },
+          "label": {
+            "type": "string",
+            "description": "Short label for the edge (e.g. 'calls', 'uses_model', 'reads_writes')."
+          },
+          "type": {
+            "type": "string",
+            "enum": ["calls", "uses_model", "reads_writes", "orchestrates", "depends_on"],
+            "default": "calls"
+          },
+          "description": {
+            "type": "string",
+            "description": "Explanation of how data or execution flows along this edge."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["project_name", "nodes", "edges"],
+  "additionalProperties": false
+}

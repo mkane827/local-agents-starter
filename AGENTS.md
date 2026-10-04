@@ -111,7 +111,10 @@ As the project develops, code and configurations should follow this structure:
 | **LangGraph Base Agent** | [`agents/base_agent.py`](agents/base_agent.py) | Deterministic LangGraph state machine powered by local Gemma 2 (9B) | ✅ Verified |
 | **Google Drive Tooling** | [`tools/gdrive_tool.py`](tools/gdrive_tool.py) | Google Drive API integration for search, read, create, and update operations | ✅ Verified |
 | **Google Drive Agent** | [`agents/gdrive_agent.py`](agents/gdrive_agent.py) | Local LangGraph agent powered by Qwen 2.5 Coder for natural language Drive management | ✅ Verified |
+| **Agent Architecture Visualizer** | [`tools/visualizer/index.html`](tools/visualizer/index.html) | Standalone D3.js interactive architecture graph & Markdown inspector webapp | ✅ Verified |
+| **Visualizer Runner Script** | [`scripts/visualize.py`](scripts/visualize.py) | Single-command Python HTTP server and workspace scanner for the visualizer | ✅ Verified |
+| **Visualizer Agent Skill** | [`.agents/skills/agent-visualizer/SKILL.md`](.agents/skills/agent-visualizer/SKILL.md) | Agent skill for generating architecture schemas and serving visualizations | ✅ Verified |
 
 ---
 
-*Last Updated: 2026-09-18 (Local Agents Starter Repository Initialized)*
+*Last Updated: 2026-10-04 (Agent Architecture Visualizer Added)*

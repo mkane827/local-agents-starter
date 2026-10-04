@@ -109,16 +109,33 @@ local-agents-starter/
 │   └── gdrive_agent.py     # Example tool-calling agent (Qwen 2.5 Coder)
 │
 ├── tools/                  # Local tools, wrappers, and MCP connectors
-│   └── gdrive_tool.py      # Example Google Drive API tool wrapper
+│   ├── gdrive_tool.py      # Example Google Drive API tool wrapper
+│   └── visualizer/         # Interactive D3 architecture graph & schema
 │
 ├── workflows/              # Multi-agent orchestrations and batch scripts
 ├── config/                 # Environment configurations and prompt presets
 ├── data/                   # Local databases and ChromaDB vector store (gitignored)
 ├── scripts/                # Diagnostic scripts and setup automation
-│   └── setup_check.py      # Automated setup verification tool
+│   ├── setup_check.py      # Automated setup verification tool
+│   └── visualize.py        # Single-command HTTP server for architecture visualizer
 └── tests/                  # Verification test harnesses
     └── test_local_gemma.py # Direct Ollama inference smoke test
 ```
+
+---
+
+## 📊 Interactive Architecture Visualizer
+
+This starter includes a zero-npm, single-file web application to visualize your local agent graph, dependencies, models, and tools:
+
+```bash
+uv run python scripts/visualize.py
+```
+
+- **Interactive D3 Canvas**: Pan, zoom, drag nodes, and filter by component type (Agents, Tools, Models, Datastores, Workflows).
+- **Markdown Inspector Panel**: Click any node to slide open a detailed Markdown spec describing its state schema, inputs/outputs, and active connections.
+- **Zero Build / NPM Overhead**: Powered by a single self-contained HTML file (`tools/visualizer/index.html`) using D3.js and Marked.js via CDN and served by Python's standard `http.server`.
+- **Autonomous Agent Skill**: Includes `.agents/skills/agent-visualizer/` so any coding assistant can automatically map new agents and tools to `agent_graph.json` as your project grows.
 
 ---
 
