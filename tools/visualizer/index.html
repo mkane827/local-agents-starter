@@ -217,12 +217,17 @@
       text-anchor: middle;
       pointer-events: none;
       user-select: none;
-      background: var(--bg-canvas);
+      opacity: 0.65;
+      paint-order: stroke fill;
+      stroke: var(--bg-canvas);
+      stroke-width: 3px;
+      stroke-linejoin: round;
     }
 
     .link-label.highlighted {
       fill: var(--text-primary);
       font-weight: 600;
+      opacity: 1;
     }
 
     .node-group {
@@ -265,6 +270,10 @@
       text-anchor: middle;
       pointer-events: none;
       user-select: none;
+      paint-order: stroke fill;
+      stroke: var(--bg-canvas);
+      stroke-width: 4px;
+      stroke-linejoin: round;
     }
 
     .node-sublabel {
@@ -273,6 +282,10 @@
       text-anchor: middle;
       pointer-events: none;
       user-select: none;
+      paint-order: stroke fill;
+      stroke: var(--bg-canvas);
+      stroke-width: 3px;
+      stroke-linejoin: round;
     }
 
     .node-group.dimmed {
@@ -634,38 +647,40 @@
 
     svg.call(zoom);
 
-    // Arrowhead marker definition
+    // Arrowhead marker definition (tip placed at end of line on node boundary)
     const defs = svg.append('defs');
     defs.append('marker')
       .attr('id', 'arrow')
       .attr('viewBox', '0 -5 10 10')
-      .attr('refX', 28)
+      .attr('refX', 8)
       .attr('refY', 0)
       .attr('markerWidth', 6)
       .attr('markerHeight', 6)
       .attr('orient', 'auto')
       .append('path')
-      .attr('d', 'M0,-5L10,0L0,5')
+      .attr('d', 'M0,-4L8,0L0,4Z')
       .attr('fill', 'var(--border-medium)');
 
     defs.append('marker')
       .attr('id', 'arrow-highlighted')
       .attr('viewBox', '0 -5 10 10')
-      .attr('refX', 28)
+      .attr('refX', 8)
       .attr('refY', 0)
       .attr('markerWidth', 7)
       .attr('markerHeight', 7)
       .attr('orient', 'auto')
       .append('path')
-      .attr('d', 'M0,-5L10,0L0,5')
+      .attr('d', 'M0,-4L8,0L0,4Z')
       .attr('fill', 'var(--text-primary)');
 
-    // Force Simulation Setup
+    // Force Simulation Setup: expansive spacing and collision radius so nodes & labels never overlap
     let simulation = d3.forceSimulation()
-      .force('link', d3.forceLink().id(d => d.id).distance(140))
-      .force('charge', d3.forceManyBody().strength(-400))
+      .force('link', d3.forceLink().id(d => d.id).distance(220))
+      .force('charge', d3.forceManyBody().strength(-850))
       .force('center', d3.forceCenter(container.clientWidth / 2, container.clientHeight / 2))
-      .force('collision', d3.forceCollide().radius(45));
+      .force('x', d3.forceX(container.clientWidth / 2).strength(0.015))
+      .force('y', d3.forceY(container.clientHeight / 2).strength(0.015))
+      .force('collision', d3.forceCollide().radius(80));
 
     // Load Data
     async function loadGraphData() {
@@ -763,11 +778,27 @@
 
       // Simulation Ticks
       simulation.nodes(nodes).on('tick', () => {
+        const nodeRadius = 24;
+
         link.attr('d', d => {
           const dx = d.target.x - d.source.x;
           const dy = d.target.y - d.source.y;
-          const dr = Math.sqrt(dx * dx + dy * dy) * 1.5;
-          return `M${d.source.x},${d.source.y}A${dr},${dr} 0 0,1 ${d.target.x},${d.target.y}`;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist === 0 || isNaN(dist)) {
+            return `M${d.source.x},${d.source.y}L${d.target.x},${d.target.y}`;
+          }
+
+          const ux = dx / dist;
+          const uy = dy / dist;
+
+          // Start at source perimeter and terminate at target perimeter
+          const sx = d.source.x + ux * nodeRadius;
+          const sy = d.source.y + uy * nodeRadius;
+          const tx = d.target.x - ux * nodeRadius;
+          const ty = d.target.y - uy * nodeRadius;
+
+          return `M${sx},${sy}L${tx},${ty}`;
         });
 
         linkLabels
